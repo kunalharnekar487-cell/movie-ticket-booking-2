@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Select Seats | MovieXpress</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .seat { width: 30px; height: 30px; margin: 5px; border-radius: 4px; }
+    .seat.available { background-color: #4ade80; }
+    .seat.selected { background-color: #f87171; }
+  </style>
+</head>
+<body class="bg-gray-900 text-white p-6 text-center">
+  <h1 class="text-3xl font-bold text-red-500 mb-6">Select Your Seats</h1>
+  <div id="seats" class="grid grid-cols-10 gap-2 justify-center">
+    <!-- JS will generate seat buttons -->
+  </div>
+  <button onclick="confirmBooking()" class="mt-6 bg-red-500 px-6 py-2 rounded hover:bg-red-600">Confirm Booking</button>
+
+  <script>
+    const seatsContainer = document.getElementById('seats');
+    for (let i = 1; i <= 60; i++) {
+      const seat = document.createElement('div');
+      seat.className = 'seat available inline-block cursor-pointer';
+      seat.title = `Seat ${i}`;
+      seat.onclick = () => seat.classList.toggle('selected');
+      seatsContainer.appendChild(seat);
+    }
+
+    function confirmBooking() {
+      const selected = document.querySelectorAll('.seat.selected').length;
+      if (selected === 0) return alert("Please select at least one seat.");
+      alert(`You have selected ${selected} seat(s). Booking Confirmed!`);
+    }
+  </script>
+</body>
+</html>

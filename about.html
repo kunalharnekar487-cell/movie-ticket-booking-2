@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About | MovieXpress</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body class="dark">
+  <!-- Header -->
+  <header class="header">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 1rem;">
+      <a href="index.html" class="logo">MovieXpress</a>
+      
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="now showing.html" class="nav-link">Now Showing</a>
+        <a href="about.html" class="nav-link active">About</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="login.html" class="nav-link">Login</a>
+        <a href="user.html" class="nav-link">Dashboard</a>
+        <a href="admin.html" class="nav-link">Admin</a>
+      </nav>
+      
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <button id="theme-toggle" class="theme-toggle">
+          <span>🌙</span> Dark
+        </button>
+        <button class="mobile-menu-btn">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- About Section -->
+  <section class="container" style="padding: 4rem 1rem; min-height: 70vh;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <div class="text-center mb-8">
+        <h1 style="font-size: 3rem; font-weight: 900; margin-bottom: 1rem; color: var(--primary-red);">About MovieXpress</h1>
+        <p style="font-size: 1.2rem; color: var(--text-secondary);">Revolutionizing the way you experience cinema</p>
+      </div>
+      
+      <div class="fade-in-up" style="background: var(--dark-card); padding: 3rem; border-radius: 1rem; margin-bottom: 3rem; border: 1px solid rgba(239, 68, 68, 0.1);">
+        <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--primary-red);">Our Mission</h2>
+        <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-primary); margin-bottom: 1.5rem;">
+          MovieXpress is your premier destination for booking movie tickets online. We're passionate about bringing the magic of cinema to your fingertips with a seamless, modern booking experience.
+        </p>
+        <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-primary);">
+          Our platform offers real-time seat selection, instant confirmations, and support for multiple theaters and genres. We believe that booking movie tickets should be as exciting as watching the movie itself.
+        </p>
+      </div>
+      
+      <div class="dashboard-grid" style="margin-bottom: 3rem;">
+        <div class="dashboard-card text-center">
+          <div style="font-size: 3rem; margin-bottom: 1rem;">🎬</div>
+          <h3 style="color: var(--primary-red); margin-bottom: 0.5rem;">Latest Movies</h3>
+          <p style="color: var(--text-secondary);">Access to the newest blockbusters and indie films</p>
+        </div>
+        <div class="dashboard-card text-center">
+          <div style="font-size: 3rem; margin-bottom: 1rem;">🎫</div>
+          <h3 style="color: var(--primary-red); margin-bottom: 0.5rem;">Easy Booking</h3>
+          <p style="color: var(--text-secondary);">Simple, fast, and secure ticket booking process</p>
+        </div>
+        <div class="dashboard-card text-center">
+          <div style="font-size: 3rem; margin-bottom: 1rem;">💺</div>
+          <h3 style="color: var(--primary-red); margin-bottom: 0.5rem;">Seat Selection</h3>
+          <p style="color: var(--text-secondary);">Choose your perfect seats with our interactive map</p>
+        </div>
+      </div>
+      
+      <div class="slide-in" style="background: var(--dark-card); padding: 2rem; border-radius: 1rem; border: 1px solid rgba(239, 68, 68, 0.1);">
+        <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: var(--primary-red);">Why Choose MovieXpress?</h2>
+        <ul style="list-style: none; padding: 0;">
+          <li style="display: flex; align-items: center; margin-bottom: 1rem; font-size: 1.1rem;">
+            <span style="color: var(--success-green); margin-right: 1rem; font-size: 1.2rem;">✓</span>
+            Real-time seat availability and selection
+          </li>
+          <li style="display: flex; align-items: center; margin-bottom: 1rem; font-size: 1.1rem;">
+            <span style="color: var(--success-green); margin-right: 1rem; font-size: 1.2rem;">✓</span>
+            Instant booking confirmations
+          </li>
+          <li style="display: flex; align-items: center; margin-bottom: 1rem; font-size: 1.1rem;">
+            <span style="color: var(--success-green); margin-right: 1rem; font-size: 1.2rem;">✓</span>
+            Multiple payment options
+          </li>
+          <li style="display: flex; align-items: center; margin-bottom: 1rem; font-size: 1.1rem;">
+            <span style="color: var(--success-green); margin-right: 1rem; font-size: 1.2rem;">✓</span>
+            24/7 customer support
+          </li>
+          <li style="display: flex; align-items: center; margin-bottom: 1rem; font-size: 1.1rem;">
+            <span style="color: var(--success-green); margin-right: 1rem; font-size: 1.2rem;">✓</span>
+            Mobile-friendly responsive design
+          </li>
+        </ul>
+      </div>
+      
+      <div class="text-center mt-8">
+        <a href="now showing.html" class="btn btn-primary">
+          <span>🎬</span> Start Booking Now
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container text-center">
+      <p>&copy; 2025 MovieXpress. All rights reserved. | Built with ❤️ for movie lovers</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="main.js"></script>
+</body>
+</html>

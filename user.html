@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Dashboard | MovieXpress</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body class="dark">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 1rem;">
+      <a href="index.html" class="logo">MovieXpress</a>
+      
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="now showing.html" class="nav-link">Now Showing</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="profile.html" class="nav-link">Profile</a>
+        <a href="user.html" class="nav-link active">Dashboard</a>
+        <a href="login.html" class="nav-link">Logout</a>
+      </nav>
+      
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <span data-user-name style="color: var(--text-secondary); font-size: 0.9rem;">Welcome, User</span>
+        <button id="theme-toggle" class="theme-toggle">
+          <span>🌙</span> Dark
+        </button>
+        <button class="mobile-menu-btn">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Dashboard Section -->
+  <section class="container" style="padding: 2rem 1rem;">
+    <!-- Welcome Section -->
+    <div class="text-center mb-8">
+      <h1 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; color: var(--primary-red);">My Dashboard</h1>
+      <p style="color: var(--text-secondary);">Manage your bookings and profile</p>
+    </div>
+    
+    <!-- Quick Stats -->
+    <div id="dashboard-stats" class="dashboard-grid" style="margin-bottom: 3rem;">
+      <!-- Stats will be populated by JavaScript -->
+    </div>
+    
+    <!-- Bookings Section -->
+    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 3rem; align-items: start;">
+      <div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+          <h2 style="font-size: 1.8rem; font-weight: 700; color: var(--primary-red);">My Bookings</h2>
+          <button onclick="toggleAddBooking()" class="btn btn-primary">
+            <span>➕</span> Add Booking
+          </button>
+        </div>
+
+        <div id="bookings-list">
+          <!-- Bookings will be populated by JavaScript -->
+        </div>
+      </div>
+      
+      <!-- Profile Section -->
+      <div>
+        <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--primary-red);">My Profile</h2>
+        <div class="form-container">
+          <div style="text-align: center; margin-bottom: 2rem;">
+            <div style="width: 80px; height: 80px; background: var(--primary-red); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2rem;">👤</div>
+            <h3 style="font-size: 1.2rem; font-weight: 600;">John Doe</h3>
+          </div>
+          
+          <div style="display: flex; flex-direction: column; gap: 1rem;">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <span style="color: var(--primary-red); font-size: 1.1rem;">📧</span>
+              <span>john@example.com</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <span style="color: var(--primary-red); font-size: 1.1rem;">📱</span>
+              <span>+91 9876543210</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <span style="color: var(--primary-red); font-size: 1.1rem;">📅</span>
+              <span>Member since 2024</span>
+            </div>
+          </div>
+          
+          <button onclick="alert('Profile editing coming soon!')" class="btn btn-warning" style="width: 100%; margin-top: 2rem;">
+            <span>✏️</span> Edit Profile
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container text-center">
+      <p>&copy; 2025 MovieXpress. All rights reserved. | Built with ❤️ for movie lovers</p>
+    </div>
+  </footer>
+
+  <!-- Add Booking Modal -->
+  <div id="add-booking-modal" class="modal">
+    <div class="modal-content" style="max-width: 500px;">
+      <button class="modal-close" onclick="toggleAddBooking()">&times;</button>
+      <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 2rem; color: var(--primary-red);">Add New Booking</h3>
+      
+      <div class="form-group">
+        <label class="form-label">Movie Name</label>
+        <input type="text" id="movie-name" placeholder="Enter movie name" class="form-input" />
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label">Date</label>
+        <input type="text" id="movie-date" placeholder="e.g., 28th July 2025" class="form-input" />
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label">Showtime</label>
+        <input type="text" id="movie-time" placeholder="e.g., 6:00 PM" class="form-input" />
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label">Seats</label>
+        <input type="text" id="movie-seats" placeholder="e.g., C1, C2, C3" class="form-input" />
+      </div>
+      
+      <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+        <button onclick="toggleAddBooking()" class="btn btn-secondary" style="flex: 1;">Cancel</button>
+        <button onclick="addBooking()" class="btn btn-success" style="flex: 1;">
+          <span>✅</span> Add Booking
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="main.js"></script>
+  <script>
+    function toggleAddBooking() {
+      const modal = document.getElementById("add-booking-modal");
+      modal.classList.toggle("active");
+      
+      // Clear form when closing
+      if (!modal.classList.contains("active")) {
+        document.getElementById("movie-name").value = "";
+        document.getElementById("movie-date").value = "";
+        document.getElementById("movie-time").value = "";
+        document.getElementById("movie-seats").value = "";
+      }
+    }
+
+    function addBooking() {
+      const name = document.getElementById("movie-name").value.trim();
+      const date = document.getElementById("movie-date").value.trim();
+      const time = document.getElementById("movie-time").value.trim();
+      const seats = document.getElementById("movie-seats").value.trim();
+
+      if (!name || !date || !time || !seats) {
+        MovieXpress.showNotification("Please fill in all fields", "warning");
+        return;
+      }
+
+      // Add to MovieXpress bookings
+      const booking = {
+        id: Date.now(),
+        movie: name,
+        showtime: time,
+        seats: seats.split(',').map(s => s.trim()),
+        total: seats.split(',').length * 250, // Default price
+        date: date,
+        status: 'confirmed'
+      };
+      
+      MovieXpress.bookings.push(booking);
+      localStorage.setItem('moviexpress_bookings', JSON.stringify(MovieXpress.bookings));
+      
+      // Refresh the bookings display
+      MovieXpress.renderBookings();
+      MovieXpress.renderDashboardStats();
+      
+      toggleAddBooking();
+      MovieXpress.showNotification("Booking added successfully!", "success");
+    }
+    
+    // Responsive design
+    function checkScreenSize() {
+      const container = document.querySelector('section > div:last-child');
+      if (window.innerWidth <= 768) {
+        container.style.gridTemplateColumns = '1fr';
+        container.style.gap = '2rem';
+      } else {
+        container.style.gridTemplateColumns = '2fr 1fr';
+        container.style.gap = '3rem';
+      }
+    }
+    
+    window.addEventListener('resize', checkScreenSize);
+    checkScreenSize();
+  </script>
+
+  
+  <style>
+    @media (max-width: 768px) {
+      section > div:last-child {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+      }
+    }
+  </style>
+</body>
+</html>

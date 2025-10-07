@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Tickets | MovieXpress</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    .stepper{display:flex;gap:.75rem;justify-content:center;margin:1rem 0 2rem}
+    .step{display:flex;align-items:center;gap:.5rem;color:var(--text-secondary)}
+    .step .dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid rgba(239,68,68,.4);color:#fff}
+    .step.active{color:#fff}
+    .step.active .dot{background:var(--primary-red);border-color:var(--primary-red)}
+    .hidden{display:none}
+    .mini-seat{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;background:#111;padding:8px;border-radius:8px}
+    .mini-seat div{ text-align:center;font-size:.75rem;padding:.35rem;border-radius:.35rem;background:#2b2b2b;color:#aaa }
+    .mini-seat .on{ background:var(--primary-red); color:#fff }
+    .screen-bar{background:#333;padding:.4rem;border-radius:.4rem;margin: .5rem 0 1rem 0;text-align:center}
+  </style>
+</head>
+<body class="dark">
+  <header class="header">
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center;padding:1.5rem 1rem;">
+      <a href="index.html" class="logo">MovieXpress</a>
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="now showing.html" class="nav-link">Now Showing</a>
+        <a href="profile.html" class="nav-link">Profile</a>
+        <a href="user.html" class="nav-link">Dashboard</a>
+      </nav>
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <span data-user-name style="color:var(--text-secondary);font-size:.9rem;">Welcome, User</span>
+        <button id="theme-toggle" class="theme-toggle"><span>🌙</span> Dark</button>
+        <button class="mobile-menu-btn">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="container" style="padding:2rem 1rem;max-width:1100px;">
+    <h1 style="font-size:2rem;font-weight:800;margin-bottom:.5rem;color:var(--primary-red);text-align:center">Book Tickets</h1>
+    <div class="stepper">
+      <div class="step active" data-step="1"><div class="dot">1</div><div>Select Movie</div></div>
+      <div class="step" data-step="2"><div class="dot">2</div><div>Select Seats</div></div>
+      <div class="step" data-step="3"><div class="dot">3</div><div>Details & Payment</div></div>
+      <div class="step" data-step="4"><div class="dot">4</div><div>Review & Pay</div></div>
+    </div>
+
+    <!-- Step 1: Movie & Showtime -->
+    <div id="step-1" class="form-container">
+      <div class="form-group">
+        <label class="form-label">Movie</label>
+        <select id="bk-movie" class="form-input"></select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Showtime</label>
+        <div id="bk-showtimes" style="display:flex;gap:.5rem;flex-wrap:wrap"></div>
+      </div>
+      <div style="display:flex;gap:1rem;margin-top:1rem;justify-content:flex-end">
+        <button class="btn btn-primary" id="to-step-2" disabled><span>➡️</span> Continue</button>
+      </div>
+    </div>
+
+    <!-- Step 2: Seat Selection -->
+    <div id="step-2" class="form-container hidden">
+      <div style="text-align:center">
+        <h3 id="bk-movie-title" style="margin-bottom:.25rem"></h3>
+        <div id="bk-showtime-label" style="color:var(--text-secondary);margin-bottom:1rem"></div>
+      </div>
+      <div class="screen-bar">SCREEN</div>
+      <div id="bk-seat-grid" class="seat-grid"></div>
+      <div style="display:flex;justify-content:center;gap:2rem;margin:1rem 0;">
+        <div style="display:flex;align-items:center;gap:.5rem"><div class="seat available"></div><span>Available</span></div>
+        <div style="display:flex;align-items:center;gap:.5rem"><div class="seat selected"></div><span>Selected</span></div>
+        <div style="display:flex;align-items:center;gap:.5rem"><div class="seat occupied"></div><span>Occupied</span></div>
+      </div>
+      <div style="text-align:center;margin-top:.5rem">
+        <p id="bk-seat-info">Select your seats</p>
+      </div>
+      <div style="display:flex;gap:1rem;margin-top:1rem;justify-content:space-between;flex-wrap:wrap">
+        <button class="btn btn-secondary" id="back-1"><span>⬅️</span> Back</button>
+        <button class="btn btn-primary" id="to-step-3" disabled><span>➡️</span> Continue</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Details & Payment -->
+    <div id="step-3" class="form-container hidden">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <input id="bk-name" type="text" class="form-input" placeholder="Your name"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input id="bk-email" type="email" class="form-input" placeholder="you@example.com"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Booking Method</label>
+          <select id="bk-booking-method" class="form-input">
+            <option>Online</option>
+            <option>Pay at Counter</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Payment Method</label>
+          <select id="bk-payment-method" class="form-input">
+            <option>UPI</option>
+            <option>Credit/Debit Card</option>
+            <option>NetBanking</option>
+            <option>Cash</option>
+          </select>
+        </div>
+      </div>
+      <div style="display:flex;gap:1rem;margin-top:1rem;justify-content:space-between;flex-wrap:wrap">
+        <button class="btn btn-secondary" id="back-2"><span>⬅️</span> Back</button>
+        <button class="btn btn-primary" id="to-step-4"><span>➡️</span> Review</button>
+      </div>
+    </div>
+
+    <!-- Step 4: Review & Pay -->
+    <div id="step-4" class="form-container hidden">
+      <h3 style="margin-bottom:1rem;color:var(--primary-red)">Review</h3>
+      <div style="display:grid;grid-template-columns:1.2fr .8fr;gap:1rem;align-items:start">
+        <div>
+          <div class="dashboard-card" style="text-align:left">
+            <p><strong>Movie:</strong> <span id="rv-movie"></span></p>
+            <p><strong>Showtime:</strong> <span id="rv-showtime"></span></p>
+            <p><strong>Seats:</strong> <span id="rv-seats"></span></p>
+            <p><strong>Total:</strong> ₹<span id="rv-total"></span></p>
+            <p><strong>Name:</strong> <span id="rv-name"></span></p>
+            <p><strong>Email:</strong> <span id="rv-email"></span></p>
+            <p><strong>Booking:</strong> <span id="rv-bm"></span> • <strong>Payment:</strong> <span id="rv-pm"></span></p>
+          </div>
+          <div style="margin-top:1rem">
+            <div class="screen-bar">SCREEN</div>
+            <div id="rv-seatmap" class="mini-seat"></div>
+          </div>
+        </div>
+        <div class="dashboard-card" style="text-align:center">
+          <div style="font-size:1.1rem;margin-bottom:.5rem">Scan to Pay / Verify</div>
+          <img id="rv-qr" src="" alt="QR" style="background:#fff;padding:6px;border-radius:8px"/>
+          <div style="color:var(--text-secondary); font-size:.9rem; margin-top:.5rem">Use any QR scanner/UPI app to pay. After payment, click the button below to verify.</div>
+          <div style="display:flex; gap:.5rem; justify-content:center; margin-top:1rem; flex-wrap:wrap;">
+            <button class="btn btn-warning" id="mark-paid"><span>📱</span> I scanned and paid</button>
+            <button class="btn btn-success" id="confirm-booking" disabled><span>✅</span> Confirm Ticket</button>
+          </div>
+          <div id="verify-msg" style="margin-top:.5rem; font-size:.9rem; color:var(--success-green); display:none;">Payment verified. You can confirm your ticket now.</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:1rem;margin-top:1rem;justify-content:flex-start;">
+        <button class="btn btn-secondary" id="back-3"><span>⬅️</span> Back</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer"><div class="container text-center"><p>&copy; 2025 MovieXpress. All rights reserved.</p></div></footer>
+
+  <script src="main.js"></script>
+  <script>
+    // Simple multi-step controller using MovieXpress data
+    const steps = [1,2,3,4];
+    let currentStep = 1;
+    let state = { movieId: null, showtime: null, seats: [], name: '', email: '', bm: 'Online', pm: 'UPI', verified: false };
+
+    function setStep(n){
+      currentStep = n;
+      steps.forEach(s=>{
+        document.getElementById('step-'+s).classList.toggle('hidden', s!==n);
+        document.querySelector('.step[data-step="'+s+'"]').classList.toggle('active', s===n);
+      });
+    }
+
+    // Populate movies
+    function loadMovies(){
+      const sel = document.getElementById('bk-movie');
+      sel.innerHTML = '<option value="">Select a movie</option>' + MovieXpress.movies.map(m=>`<option value="${m.id}">${m.title}</option>`).join('');
+      sel.addEventListener('change', ()=>{
+        state.movieId = parseInt(sel.value,10) || null;
+        renderShowtimes();
+        document.getElementById('to-step-2').disabled = !state.showtime;
+      });
+    }
+
+    function renderShowtimes(){
+      const box = document.getElementById('bk-showtimes');
+      box.innerHTML = '';
+      state.showtime = null;
+      const m = MovieXpress.movies.find(x=>x.id===state.movieId);
+      (m?.showtimes||[]).forEach(t=>{
+        const btn = document.createElement('button');
+        btn.className = 'btn btn-secondary';
+        btn.textContent = t;
+        btn.onclick = ()=>{
+          state.showtime = t;
+          document.getElementById('to-step-2').disabled = false;
+          [...box.children].forEach(c=>c.className='btn btn-secondary');
+          btn.className = 'btn btn-primary';
+        };
+        box.appendChild(btn);
+      });
+    }
+
+    // Seat grid
+    function buildSeatGrid(){
+      const grid = document.getElementById('bk-seat-grid');
+      grid.innerHTML='';
+      state.seats = [];
+      const rows = MovieXpress.seatRows || 6, cols = MovieXpress.seatCols || 10;
+      for(let r=0;r<rows;r++){
+        for(let c=0;c<cols;c++){
+          const label = String.fromCharCode(65+r)+(c+1);
+          const el = document.createElement('button');
+          el.className = Math.random()<0.25? 'seat occupied':'seat available';
+          el.textContent = label;
+          el.disabled = el.classList.contains('occupied');
+          if(!el.disabled){
+            el.addEventListener('click', ()=>{
+              if(el.classList.contains('selected')){
+                el.classList.remove('selected'); el.classList.add('available');
+                state.seats = state.seats.filter(s=>s!==label);
+              }else{
+                if(state.seats.length>=6){ MovieXpress.showNotification('Maximum 6 seats can be selected','warning'); return; }
+                el.classList.remove('available'); el.classList.add('selected');
+                state.seats.push(label);
+              }
+              updateSeatInfo();
+            });
+          }
+          grid.appendChild(el);
+        }
+      }
+      updateSeatInfo();
+    }
+
+    function updateSeatInfo(){
+      const info = document.getElementById('bk-seat-info');
+      const btn = document.getElementById('to-step-3');
+      if(state.seats.length===0){ info.textContent='Select your seats'; btn.disabled=true; }
+      else { const movie = MovieXpress.movies.find(x=>x.id===state.movieId); const total=state.seats.length*(movie?.price||0); info.innerHTML=`Selected: ${state.seats.join(', ')}<br>Total: ₹${total}`; btn.disabled=false; }
+    }
+
+    function fillReview(){
+      const movie = MovieXpress.movies.find(x=>x.id===state.movieId);
+      document.getElementById('rv-movie').textContent = movie?.title||'';
+      document.getElementById('rv-showtime').textContent = state.showtime;
+      document.getElementById('rv-seats').textContent = state.seats.join(', ');
+      document.getElementById('rv-total').textContent = (state.seats.length*(movie?.price||0));
+      document.getElementById('rv-name').textContent = state.name || '-';
+      document.getElementById('rv-email').textContent = state.email || '-';
+      document.getElementById('rv-bm').textContent = state.bm;
+      document.getElementById('rv-pm').textContent = state.pm;
+
+      // Seat mini-map
+      const rows = MovieXpress.seatRows||6, cols=MovieXpress.seatCols||10;
+      const map = document.getElementById('rv-seatmap');
+      map.style.gridTemplateColumns = `repeat(${cols},1fr)`;
+      map.innerHTML = Array.from({length: rows}).map((_, r)=>
+        Array.from({length: cols}).map((_, c)=>{
+          const label = String.fromCharCode(65+r)+(c+1);
+          const sel = state.seats.includes(label)?'on':'';
+          return `<div class="${sel}">${label}</div>`;
+        }).join('')
+      ).join('');
+
+      // QR
+      const amount = state.seats.length*(movie?.price||0);
+      const payload = encodeURIComponent(JSON.stringify({movie: movie?.title, showtime: state.showtime, seats: state.seats, total: amount, pm: state.pm }));
+      document.getElementById('rv-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${payload}`;
+      // Reset verification when review changes
+      state.verified = false;
+      document.getElementById('confirm-booking').disabled = true;
+      document.getElementById('verify-msg').style.display = 'none';
+    }
+
+    function bindNav(){
+      document.getElementById('to-step-2').onclick = ()=>{ setStep(2); document.getElementById('bk-movie-title').textContent = MovieXpress.movies.find(x=>x.id===state.movieId)?.title||''; document.getElementById('bk-showtime-label').textContent = state.showtime; buildSeatGrid(); };
+      document.getElementById('back-1').onclick = ()=> setStep(1);
+      document.getElementById('to-step-3').onclick = ()=> setStep(3);
+      document.getElementById('back-2').onclick = ()=> setStep(2);
+      document.getElementById('to-step-4').onclick = ()=>{ state.name = document.getElementById('bk-name').value.trim(); state.email = document.getElementById('bk-email').value.trim(); state.bm = document.getElementById('bk-booking-method').value; state.pm = document.getElementById('bk-payment-method').value; fillReview(); setStep(4); };
+      document.getElementById('back-3').onclick = ()=> setStep(3);
+      document.getElementById('mark-paid').onclick = ()=>{
+        // In a real app, we'd confirm server-side. Here we require explicit user action
+        state.verified = true;
+        document.getElementById('confirm-booking').disabled = false;
+        document.getElementById('verify-msg').style.display = 'block';
+        MovieXpress.showNotification('Payment marked as verified', 'success');
+      };
+
+      document.getElementById('confirm-booking').onclick = ()=>{
+        if(!state.verified){ MovieXpress.showNotification('Please scan the QR and verify payment first', 'warning'); return; }
+        const movie = MovieXpress.movies.find(x=>x.id===state.movieId);
+        const booking = {
+          id: Date.now(),
+          movie: movie?.title,
+          showtime: state.showtime,
+          seats: [...state.seats],
+          total: state.seats.length*(movie?.price||0),
+          date: new Date().toLocaleDateString(),
+          status: 'confirmed',
+          bookingMethod: state.bm,
+          paymentMethod: state.pm
+        };
+        MovieXpress.bookings.push(booking);
+        localStorage.setItem('moviexpress_bookings', JSON.stringify(MovieXpress.bookings));
+        MovieXpress.showBookingConfirmation(booking);
+      };
+    }
+
+    document.addEventListener('DOMContentLoaded', ()=>{
+      setStep(1);
+      loadMovies();
+      bindNav();
+      // Prefill name/email from current user if available
+      if(MovieXpress.currentUser){
+        document.getElementById('bk-name').value = MovieXpress.currentUser.name || '';
+        document.getElementById('bk-email').value = MovieXpress.currentUser.email || '';
+      }
+    });
+  </script>
+</body>
+</html>

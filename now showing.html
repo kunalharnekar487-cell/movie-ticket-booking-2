@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Now Showing | MovieXpress</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-950 text-white">
+
+  <!-- Header -->
+  <header class="flex justify-between items-center p-6 bg-gray-900 shadow">
+    <h1 class="text-2xl font-bold text-red-500">MovieXpress</h1>
+    <nav>
+      <a href="index.html" class="mx-2 hover:underline">Home</a>
+      <a href="now showing.html" class="mx-2 hover:underline">Now Showing</a>
+      <a href="about.html" class="mx-2 hover:underline">About</a>
+      <a href="contact.html" class="mx-2 hover:underline">Contact</a>
+      <a href="login.html" class="mx-2 text-red-400 hover:underline">Login</a>
+    </nav>
+  </header>
+
+  <!-- Movie Grid -->
+  <section class="p-8">
+    <h2 class="text-3xl font-bold mb-6">Now Showing</h2>
+    <div id="movie-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+  </section>
+
+  <!-- Movie Info Preview (Hidden initially) -->
+  <section id="movie-info" class="hidden fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50">
+    <div class="bg-gray-900 rounded-lg p-6 max-w-3xl w-full relative">
+      <!-- Close Button -->
+      <button onclick="closeInfo()" class="absolute top-3 right-3 text-gray-400 hover:text-white">✖</button>
+      
+      <div class="flex flex-col md:flex-row items-center gap-6">
+        <!-- Poster -->
+        <img id="info-poster" src="" alt="Poster" class="w-40 md:w-56 rounded shadow">
+        
+        <!-- Details -->
+        <div>
+          <h3 id="info-title" class="text-2xl font-bold mb-2"></h3>
+          <p id="info-genre" class="text-gray-300 mb-2"></p>
+          <p id="info-lang" class="text-gray-300 mb-2"></p>
+          <p id="info-duration" class="text-gray-300 mb-4"></p>
+          <a href="seat-selection.html" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded text-white text-sm">Book Tickets</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const movies = [
+      {
+        title: "The Dark Knight",
+        image: "https://m.media-amazon.com/images/I/51k0qaA8m2L._AC_SY679_.jpg",
+        genre: "Action, Crime, Drama",
+        languages: "English, Hindi",
+        duration: "2h 32m"
+      },
+      {
+        title: "Oppenheimer",
+        image: "https://m.media-amazon.com/images/I/81t9ZrZUJxL._AC_SL1500_.jpg",
+        genre: "Biography, Drama",
+        languages: "English",
+        duration: "3h"
+      },
+      {
+        title: "Avengers: Endgame",
+        image: "https://m.media-amazon.com/images/I/81ExhpBEbHL._AC_SL1500_.jpg",
+        genre: "Action, Sci-Fi",
+        languages: "English, Hindi, Tamil, Telugu",
+        duration: "3h 1m"
+      },
+      {
+        title: "Jawan",
+        image: "https://m.media-amazon.com/images/I/61z6V8ZUgBL._AC_UF1000,1000_QL80_.jpg",
+        genre: "Action, Thriller",
+        languages: "Hindi, Tamil, Telugu",
+        duration: "2h 49m"
+      },
+      {
+        title: "Spider-Man: No Way Home",
+        image: "https://m.media-amazon.com/images/I/81H4K1dOXfL._AC_SL1500_.jpg",
+        genre: "Action, Adventure, Sci-Fi",
+        languages: "English, Hindi",
+        duration: "2h 28m"
+      },
+      {
+        title: "Dune",
+        image: "https://m.media-amazon.com/images/I/81vYHZOTWZL._AC_SL1500_.jpg",
+        genre: "Adventure, Drama, Sci-Fi",
+        languages: "English",
+        duration: "2h 35m"
+      },
+      {
+        title: "Interstellar",
+        image: "https://m.media-amazon.com/images/I/71niXI3lxlL._AC_SL1024_.jpg",
+        genre: "Adventure, Drama, Sci-Fi",
+        languages: "English, Hindi",
+        duration: "2h 49m"
+      },
+      {
+        title: "Inception",
+        image: "https://m.media-amazon.com/images/I/81p+xe8cbnL._AC_SL1500_.jpg",
+        genre: "Action, Sci-Fi, Thriller",
+        languages: "English, Hindi",
+        duration: "2h 28m"
+      },
+      {
+        title: "KGF: Chapter 2",
+        image: "https://m.media-amazon.com/images/I/91Qf3N0n0vL._AC_SL1500_.jpg",
+        genre: "Action, Drama",
+        languages: "Kannada, Hindi, Tamil, Telugu, Malayalam",
+        duration: "2h 48m"
+      },
+      {
+        title: "3 Idiots",
+        image: "https://m.media-amazon.com/images/I/81zHj3G1J8L._AC_SL1500_.jpg",
+        genre: "Comedy, Drama",
+        languages: "Hindi",
+        duration: "2h 50m"
+      },
+      {
+        title: "RRR",
+        image: "https://m.media-amazon.com/images/I/81ZrJ4Gk9yL._AC_SL1500_.jpg",
+        genre: "Action, Drama",
+        languages: "Telugu, Hindi, Tamil, Kannada, Malayalam",
+        duration: "3h 7m"
+      },
+      {
+        title: "Pathaan",
+        image: "https://m.media-amazon.com/images/I/71i7zAq1b8L._AC_SL1500_.jpg",
+        genre: "Action, Thriller",
+        languages: "Hindi, Tamil, Telugu",
+        duration: "2h 26m"
+      }
+    ];
+
+    const movieList = document.getElementById("movie-list");
+    const movieInfo = document.getElementById("movie-info");
+    const infoPoster = document.getElementById("info-poster");
+    const infoTitle = document.getElementById("info-title");
+    const infoGenre = document.getElementById("info-genre");
+    const infoLang = document.getElementById("info-lang");
+    const infoDuration = document.getElementById("info-duration");
+
+    // Create Movie Cards
+    movies.forEach((movie, index) => {
+      const div = document.createElement("div");
+      div.className = "bg-gray-800 rounded shadow p-4 hover:shadow-lg transition cursor-pointer";
+      div.innerHTML = `
+        <img src="${movie.image}" alt="${movie.title}" class="w-full h-64 object-cover rounded mb-3" />
+        <h3 class="text-xl font-semibold mb-2">${movie.title}</h3>
+        <button class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded text-white text-sm">View Info</button>
+      `;
+      div.querySelector("button").addEventListener("click", () => showInfo(movie));
+      movieList.appendChild(div);
+    });
+
+    function showInfo(movie) {
+      infoPoster.src = movie.image;
+      infoTitle.textContent = movie.title;
+      infoGenre.textContent = `Genre: ${movie.genre}`;
+      infoLang.textContent = `Languages: ${movie.languages}`;
+      infoDuration.textContent = `Duration: ${movie.duration}`;
+      movieInfo.classList.remove("hidden");
+    }
+
+    function closeInfo() {
+      movieInfo.classList.add("hidden");
+    }
+  </script>
+
+  <!-- Footer -->
+  <footer class="text-center p-4 mt-12 bg-gray-900 text-gray-400">
+    &copy; 2025 MovieXpress. All rights reserved.
+  </footer>
+</body>
+</html>
